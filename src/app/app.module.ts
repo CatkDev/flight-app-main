@@ -9,12 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { FlightCardComponent } from './flight-card/flight-card.component';
 import { DateComponent } from './date/date.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule
     ],
     declarations: [
         AppComponent,

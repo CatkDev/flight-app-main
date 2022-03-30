@@ -1,4 +1,4 @@
-import { Component, EventEmitter ,Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter , Input, OnInit, Output } from '@angular/core';
 import { FLIGHT } from '../flight';
 
 @Component({
@@ -18,12 +18,12 @@ export class FlightCardComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    select() {
+    select(): void {
         this.selected = true;
         this.selectedChange.emit(true);
     }
 
-    deselect() {
+    deselect(): void {
         this.selected = false;
         this.selectedChange.emit(false);
     }
