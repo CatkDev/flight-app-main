@@ -17,16 +17,16 @@ export class DateComponent implements OnInit {
     minute: number | null = null;
 
     constructor() {
-        console.debug('date in constructor', this.date);
+        // console.log('date in constructor', this.date);
     }
 
     ngOnInit(): void {
-        console.debug('date in ngOnInit', this.date);
+        // console.log('date in ngOnInit', this.date);
     }
 
-    ngOnChange(change: SimpleChanges) {
-        console.debug('date in ngOnChanges', this.date);
-        if(!this.date) {
+    ngOnChange(change: SimpleChanges): void {
+        // console.log('date in ngOnChanges', this.date);
+        if (!this.date) {
             return;
         }
 
@@ -38,14 +38,14 @@ export class DateComponent implements OnInit {
         this.minute = date.getMinutes();
     }
 
-    apply() {
+    apply(): void {
         if ( !this.year || !this.month || !this.day || !this.hour || !this.minute) {
             return;
         }
         const date = new Date(this.year, this.month - 1, this.day, this.hour, this.minute);
         this.dateChange.next(date.toISOString());
-        console.debug('date in apply', date);
-        console.debug('date in apply', this.date);
+        // console.log('date in apply', date);
+        // console.log('date in apply', this.date);
     }
 
 }

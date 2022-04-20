@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FLIGHT } from '../flight';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { FlightService } from '../flight.service';
 
 @Component({
     selector: 'app-flight-search',
@@ -14,12 +14,13 @@ export class FlightSearchComponent implements OnInit {
     date: string = (new Date()).toISOString();
     flights: Array<FLIGHT> = [];
     selectedFlight: FLIGHT | null = null;
+
     basket: { [key: number]: boolean } = {
         3: true,
         5: true
     };
 
-    constructor(private http: HttpClient) {
+    constructor(private fs: FlightService) {
     }
 
     ngOnInit(): void {
@@ -27,51 +28,18 @@ export class FlightSearchComponent implements OnInit {
 
     search(): void {
 
-        const url = 'http://demo.ANGULARarchitects.io/api/flight';
-
-        const headers = new HttpHeaders()
-            .set('Accept', 'application/json');
-
-        const params = new HttpParams()
-            .set('from', this.from)
-            .set('to', this.to);
-
-        this.http.get<FLIGHT[]>(url, { headers, params}).subscribe({
+        this.fs.find(this.from, this.to).subscribe({
             next: (flights) => {
                 this.flights = flights;
             },
             error: (err) => {
-                console.error('Error', err);
+                console.log('Error', err);
             }
         });
-
     }
 
     select(f: FLIGHT): void {
         this.selectedFlight = f;
-    }
-
-    createDemoFlight(): void {
-        const url = 'http://demo.ANGULARarchitects.io/api/flight';
-
-        const headers = new HttpHeaders()
-            .set('Accept', 'application/json');
-
-        const newFlight: FLIGHT = {
-            id: 0,
-            from: 'Gleisdorf',
-            to: 'Graz',
-            date: new Date().toISOString()
-        };
-
-        this.http.post<FLIGHT>(url, newFlight, { headers }).subscribe({
-            next: (flight) => {
-                console.log('Neue Id: ', flight.id);
-            },
-            error: (err) => {
-                console.error('Error', err);
-            }
-        });
     }
 
 }
